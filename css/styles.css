@@ -4,14 +4,21 @@ body {
     font-family: 'Courier New', monospace;
     margin: 0;
 }
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
 
 .terminal {
-    border: 2px solid #00FF41;
-    padding: 30px;
-    margin: 60px;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 1;
 }
 
 h1 {
     color: #FF0000;
-
 }
