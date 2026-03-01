@@ -1,24 +1,80 @@
+/* ===== RESET ===== */
 body {
-    background-color: #000;
-    color: #00FF41;
-    font-family: 'Courier New', monospace;
     margin: 0;
+    overflow: hidden;
+    background-color: #000;
+    font-family: "Courier New", monospace;
+    color: #00FF41;
 }
+
+/* ===== CANVAS 3D ===== */
 canvas {
     position: fixed;
     top: 0;
     left: 0;
 }
 
+/* ===== HEADER TERMINAL ===== */
 .terminal {
     position: absolute;
-    top: 30px;
+    top: 20px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    z-index: 1;
+    z-index: 2;
 }
 
 h1 {
     color: #FF0000;
+    margin-bottom: 5px;
+}
+
+/* ===== CHAT ===== */
+.chat-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    padding: 15px;
+    box-sizing: border-box;
+    border-top: 1px solid #00FF41;
+    z-index: 2;
+}
+
+#chat-box {
+    max-height: 180px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+#chat-box p {
+    margin: 5px 0;
+}
+
+.input-area {
+    display: flex;
+}
+
+#user-input {
+    flex: 1;
+    padding: 8px;
+    background: black;
+    color: #00FF41;
+    border: 1px solid #00FF41;
+    outline: none;
+}
+
+button {
+    padding: 8px 15px;
+    background: #FF6A00;
+    border: none;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #ff8c1a;
 }
