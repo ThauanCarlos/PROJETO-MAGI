@@ -13,68 +13,64 @@ antialias:true
 });
 
 renderer.setSize(window.innerWidth,window.innerHeight);
-
 camera.position.z = 5;
 
 
 
 // ======================
-// CRIAR TEXTURA DO OLHO
+// CRIAR TEXTURA DA ÍRIS
 // ======================
 
 const canvas = document.createElement("canvas");
-canvas.width = 1024;
+canvas.width = 2048;
 canvas.height = 1024;
 
 const ctx = canvas.getContext("2d");
 
-
-
-// fundo vermelho
-
+// fundo vermelho (globo ocular)
 ctx.fillStyle = "#ff0000";
-ctx.fillRect(0,0,1024,1024);
+ctx.fillRect(0,0,2048,1024);
 
 
+// posição frontal da esfera
+const centerX = canvas.width/2;
+const centerY = canvas.height/2;
 
-// ======================
-// ANEL EXTERNO
-// ======================
 
+// anel externo
 ctx.beginPath();
-ctx.arc(512,512,340,0,Math.PI*2);
-ctx.lineWidth = 20;
+ctx.arc(centerX,centerY,220,0,Math.PI*2);
+ctx.lineWidth = 25;
+ctx.strokeStyle = "#880000";
+ctx.stroke();
+
+
+// anel médio
+ctx.beginPath();
+ctx.arc(centerX,centerY,160,0,Math.PI*2);
+ctx.lineWidth = 18;
 ctx.strokeStyle = "#aa0000";
 ctx.stroke();
 
 
-
-// ======================
-// ANEL INTERNO
-// ======================
-
+// anel interno
 ctx.beginPath();
-ctx.arc(512,512,220,0,Math.PI*2);
-ctx.lineWidth = 15;
+ctx.arc(centerX,centerY,110,0,Math.PI*2);
+ctx.lineWidth = 14;
 ctx.strokeStyle = "#660000";
 ctx.stroke();
 
 
-
-// ======================
-// PUPILA (MENOR E REDONDA)
-// ======================
-
+// pupila
 ctx.beginPath();
-ctx.arc(512,512,70,0,Math.PI*2);
+ctx.arc(centerX,centerY,60,0,Math.PI*2);
 ctx.fillStyle = "#000000";
 ctx.fill();
 
 
-
-// criar textura
-
-const eyeTexture = new THREE.CanvasTexture(canvas);
+const texture = new THREE.CanvasTexture(canvas);
+texture.wrapS = THREE.ClampToEdgeWrapping;
+texture.wrapT = THREE.ClampToEdgeWrapping;
 
 
 
@@ -87,7 +83,7 @@ const eye = new THREE.Mesh(
 new THREE.SphereGeometry(1.2,64,64),
 
 new THREE.MeshStandardMaterial({
-map:eyeTexture,
+map:texture,
 roughness:0.35,
 metalness:0.2
 })
@@ -104,7 +100,6 @@ scene.add(eye);
 
 const light = new THREE.PointLight(0xffffff,2);
 light.position.set(5,5,5);
-
 scene.add(light);
 
 scene.add(new THREE.AmbientLight(0x404040));
@@ -139,17 +134,13 @@ requestAnimationFrame(animate);
 
 time += 0.02;
 
-
-// olho segue o mouse
-
+// olho segue mouse
 eye.rotation.y += ((mouseX*Math.PI)-eye.rotation.y)*0.05;
 eye.rotation.x += ((mouseY*Math.PI)-eye.rotation.x)*0.05;
 
 
 // pulsação leve
-
 const pulse = 1 + Math.sin(time)*0.01;
-
 eye.scale.set(pulse,pulse,pulse);
 
 
@@ -168,7 +159,6 @@ animate();
 window.addEventListener("resize",()=>{
 
 camera.aspect = window.innerWidth/window.innerHeight;
-
 camera.updateProjectionMatrix();
 
 renderer.setSize(window.innerWidth,window.innerHeight);
