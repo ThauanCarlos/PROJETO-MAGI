@@ -1,33 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROJETO MAGI</title>
-    <link rel="stylesheet" href="css/styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROJETO MAGI</title>
+
+<link rel="stylesheet" href="css/styles.css">
+
 </head>
+
 <body>
-    
-    <div class="terminal">
-        <h1>PROJETO MAGI</h1>
-        <p>SISTEMA EM INICIALIZAÇÃO...</p>
-        <p>Status: ONLINE</p>
-        <p>Versão: v0.3</p>
-    </div>
 
-    <canvas id="bg"></canvas>
+<div class="terminal">
+<h1>PROJETO MAGI</h1>
+<p>SISTEMA ATIVO</p>
+<p>Status: ONLINE</p>
+<p>Versão: v0.4</p>
+</div>
 
-    <div class="chat-container">
-        <div id="chat-box"></div>
-        <div class="input-area">
-            <input type="text" id="user-input" placeholder="Digite um comando para o MAGI..." />
-            <button onclick="sendMessage()">Enviar</button>
-        </div>
-    </div>
+<canvas id="bg"></canvas>
 
-    <!-- Scripts devem ficar no final do body -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="js/system.js"></script>
+<div class="chat-container">
+
+<div id="chat-box"></div>
+
+<div class="input-area">
+<input type="text" id="user-input" placeholder="Digite um comando para o MAGI...">
+<button onclick="sendMessage()">Enviar</button>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/system.js"></script>
 
 </body>
 </html>
