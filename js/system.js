@@ -7,18 +7,42 @@ window.innerWidth/window.innerHeight,
 1000
 );
 
+camera.position.z = 6;
+
 const renderer = new THREE.WebGLRenderer({
-canvas:document.querySelector("#bg"),
-antialias:true
+canvas: document.querySelector("#bg"),
+antialias: true
 });
 
-renderer.setSize(window.innerWidth,window.innerHeight);
-camera.position.z = 5;
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
 
 
 
 // ======================
-// CRIAR TEXTURA DA ÍRIS
+// ILUMINAÇÃO
+// ======================
+
+const ambientLight = new THREE.AmbientLight(0xffffff,0.6);
+scene.add(ambientLight);
+
+const light1 = new THREE.PointLight(0xffffff,2);
+light1.position.set(5,5,5);
+scene.add(light1);
+
+const light2 = new THREE.PointLight(0xffffff,1.5);
+light2.position.set(-5,2,5);
+scene.add(light2);
+
+// luz vermelha do olho
+const redLight = new THREE.PointLight(0xff0000,1.5);
+redLight.position.set(-2.5,0,2);
+scene.add(redLight);
+
+
+
+// ======================
+// TEXTURA DO OLHO
 // ======================
 
 const canvas = document.createElement("canvas");
@@ -27,87 +51,102 @@ canvas.height = 1024;
 
 const ctx = canvas.getContext("2d");
 
-// fundo vermelho (globo ocular)
 ctx.fillStyle = "#ff0000";
 ctx.fillRect(0,0,2048,1024);
 
+const centerX = canvas.width / 2;
+const centerY = canvas.height / 2;
 
-// posição frontal da esfera
-const centerX = canvas.width/2;
-const centerY = canvas.height/2;
-
-
-// anel externo
 ctx.beginPath();
 ctx.arc(centerX,centerY,220,0,Math.PI*2);
 ctx.lineWidth = 25;
 ctx.strokeStyle = "#880000";
 ctx.stroke();
 
-
-// anel médio
 ctx.beginPath();
 ctx.arc(centerX,centerY,160,0,Math.PI*2);
 ctx.lineWidth = 18;
 ctx.strokeStyle = "#aa0000";
 ctx.stroke();
 
-
-// anel interno
 ctx.beginPath();
 ctx.arc(centerX,centerY,110,0,Math.PI*2);
 ctx.lineWidth = 14;
 ctx.strokeStyle = "#660000";
 ctx.stroke();
 
-
-// pupila
 ctx.beginPath();
 ctx.arc(centerX,centerY,60,0,Math.PI*2);
 ctx.fillStyle = "#000000";
 ctx.fill();
 
-
 const texture = new THREE.CanvasTexture(canvas);
-texture.wrapS = THREE.ClampToEdgeWrapping;
-texture.wrapT = THREE.ClampToEdgeWrapping;
 
 
 
 // ======================
-// ESFERA DO OLHO
+// OLHO
 // ======================
 
 const eye = new THREE.Mesh(
 
-new THREE.SphereGeometry(1.2,64,64),
+new THREE.SphereGeometry(0.3,64,64),
 
 new THREE.MeshStandardMaterial({
 map:texture,
-roughness:0.35,
+roughness:0.4,
 metalness:0.2
 })
 
 );
+
+eye.position.set(0.0,0.2,1.6);
 
 scene.add(eye);
 
 
 
 // ======================
-// LUZES
+// CABEÇA STL
 // ======================
 
-const light = new THREE.PointLight(0xffffff,2);
-light.position.set(5,5,5);
-scene.add(light);
+let head;
 
-scene.add(new THREE.AmbientLight(0x404040));
+const loader = new THREE.STLLoader();
+
+loader.load(
+
+"models/head.stl",
+
+function(geometry){
+
+geometry.computeVertexNormals();
+geometry.center();
+
+const material = new THREE.MeshStandardMaterial({
+
+color:0xffffff,
+roughness:0.4,
+metalness:0.05
+
+});
+
+head = new THREE.Mesh(geometry,material);
+
+head.scale.set(0.06,0.06,0.06);
+
+head.position.set(0,0,0);
+
+scene.add(head);
+
+}
+
+);
 
 
 
 // ======================
-// MOVIMENTO DO MOUSE
+// MOUSE
 // ======================
 
 let mouseX = 0;
@@ -134,14 +173,33 @@ requestAnimationFrame(animate);
 
 time += 0.02;
 
+
 // olho segue mouse
+
 eye.rotation.y += ((mouseX*Math.PI)-eye.rotation.y)*0.05;
 eye.rotation.x += ((mouseY*Math.PI)-eye.rotation.x)*0.05;
 
 
-// pulsação leve
+// pulsação do olho
+
 const pulse = 1 + Math.sin(time)*0.01;
+
 eye.scale.set(pulse,pulse,pulse);
+
+
+// cabeça gira lentamente
+
+if(head){
+
+head.rotation.y += 0.002;
+
+
+// cabeça olha para o mouse
+
+head.rotation.y += ((mouseX*0.5)-head.rotation.y)*0.02;
+head.rotation.x += ((mouseY*0.3)-head.rotation.x)*0.02;
+
+}
 
 
 renderer.render(scene,camera);
@@ -159,6 +217,7 @@ animate();
 window.addEventListener("resize",()=>{
 
 camera.aspect = window.innerWidth/window.innerHeight;
+
 camera.updateProjectionMatrix();
 
 renderer.setSize(window.innerWidth,window.innerHeight);
