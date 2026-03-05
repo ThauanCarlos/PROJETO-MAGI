@@ -18,27 +18,24 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 
 
-
 // ======================
 // ILUMINAÇÃO
 // ======================
 
-const ambientLight = new THREE.AmbientLight(0xffffff,0.6);
+const ambientLight = new THREE.AmbientLight(0xffffff,0.25);
 scene.add(ambientLight);
 
-const light1 = new THREE.PointLight(0xffffff,2);
+const light1 = new THREE.PointLight(0xffffff,0.6);
 light1.position.set(5,5,5);
 scene.add(light1);
 
-const light2 = new THREE.PointLight(0xffffff,1.5);
+const light2 = new THREE.PointLight(0xffffff,0.4);
 light2.position.set(-5,2,5);
 scene.add(light2);
 
-// luz vermelha do olho
-const redLight = new THREE.PointLight(0xff0000,1.5);
-redLight.position.set(-2.5,0,2);
+const redLight = new THREE.PointLight(0xff0000,0.5);
+redLight.position.set(0,0,3);
 scene.add(redLight);
-
 
 
 // ======================
@@ -54,8 +51,8 @@ const ctx = canvas.getContext("2d");
 ctx.fillStyle = "#ff0000";
 ctx.fillRect(0,0,2048,1024);
 
-const centerX = canvas.width / 2;
-const centerY = canvas.height / 2;
+const centerX = canvas.width/2;
+const centerY = canvas.height/2;
 
 ctx.beginPath();
 ctx.arc(centerX,centerY,220,0,Math.PI*2);
@@ -83,27 +80,25 @@ ctx.fill();
 const texture = new THREE.CanvasTexture(canvas);
 
 
-
 // ======================
 // OLHO
 // ======================
 
 const eye = new THREE.Mesh(
 
-new THREE.SphereGeometry(0.3,64,64),
+new THREE.SphereGeometry(5.90,64,64),
 
 new THREE.MeshStandardMaterial({
 map:texture,
-roughness:0.4,
-metalness:0.2
+roughness:0.35,
+metalness:0.15
 })
 
 );
 
-eye.position.set(0.0,0.2,1.6);
-
-scene.add(eye);
-
+// ORIENTAÇÃO CORRETA
+eye.rotation.x = Math.PI / 2;
+eye.rotation.z = Math.PI - 1.50;
 
 
 // ======================
@@ -125,24 +120,45 @@ geometry.center();
 
 const material = new THREE.MeshStandardMaterial({
 
-color:0xffffff,
-roughness:0.4,
-metalness:0.05
+color:0x2e5bff,
+roughness:0.6,
+metalness:0.1
 
 });
 
 head = new THREE.Mesh(geometry,material);
 
 head.scale.set(0.06,0.06,0.06);
-
 head.position.set(0,0,0);
+
+
+// posição do olho
+eye.position.set(0,5.2,26.5);
+
+
+// olho preso na cabeça
+head.add(eye);
+
+
+// linhas da malha
+
+const edges = new THREE.EdgesGeometry(geometry);
+
+const line = new THREE.LineSegments(
+edges,
+new THREE.LineBasicMaterial({color:0x222222,
+transparent:true,
+opacity:0.35
+})
+);
+
+head.add(line);
 
 scene.add(head);
 
 }
 
 );
-
 
 
 // ======================
@@ -160,54 +176,26 @@ mouseY = (event.clientY/window.innerHeight)*2-1;
 });
 
 
-
 // ======================
 // ANIMAÇÃO
 // ======================
-
-let time = 0;
 
 function animate(){
 
 requestAnimationFrame(animate);
 
-time += 0.02;
-
-
-// olho segue mouse
-
-eye.rotation.y += ((mouseX*Math.PI)-eye.rotation.y)*0.05;
-eye.rotation.x += ((mouseY*Math.PI)-eye.rotation.x)*0.05;
-
-
-// pulsação do olho
-
-const pulse = 1 + Math.sin(time)*0.01;
-
-eye.scale.set(pulse,pulse,pulse);
-
-
-// cabeça gira lentamente
-
 if(head){
-
-head.rotation.y += 0.002;
-
-
-// cabeça olha para o mouse
 
 head.rotation.y += ((mouseX*0.5)-head.rotation.y)*0.02;
 head.rotation.x += ((mouseY*0.3)-head.rotation.x)*0.02;
 
 }
 
-
 renderer.render(scene,camera);
 
 }
 
 animate();
-
 
 
 // ======================
@@ -217,9 +205,7 @@ animate();
 window.addEventListener("resize",()=>{
 
 camera.aspect = window.innerWidth/window.innerHeight;
-
 camera.updateProjectionMatrix();
-
 renderer.setSize(window.innerWidth,window.innerHeight);
 
 });
