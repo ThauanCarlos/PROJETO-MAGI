@@ -203,6 +203,15 @@ g = 1;
 b = 1;
 
 }
+// placa branca traseira do capacete
+
+else if(z < -1 && Math.abs(x) > 5){
+
+r = 1;
+g = 1;
+b = 1;
+
+}
 
 
 // abaixo do olho (mais escuro)
