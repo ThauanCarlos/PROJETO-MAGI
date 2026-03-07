@@ -1,80 +1,140 @@
-/* ======================
-CONFIGURAÇÃO GLOBAL
-====================== */
-
 body{
+
 margin:0;
-padding:0;
-background:black;
 overflow:hidden;
-font-family:monospace;
+
+/* fundo cinza escuro */
+
+background:#2b2b2b;
+
 color:white;
+font-family:monospace;
+
 }
 
+/* canvas 3D */
 
-/* ======================
-CANVAS THREEJS
-====================== */
+canvas{
 
-#bg{
 position:fixed;
 top:0;
 left:0;
-width:100%;
-height:100%;
-z-index:0;
-display:block;
+
+/* fundo do canvas */
+
+background:#2b2b2b;
+
 }
 
 
-/* ======================
-PAINEL DO SISTEMA
-====================== */
+/* terminal superior */
 
 .terminal{
 
 position:absolute;
 
-top:80px;
+top:30px;
+left:50%;
 
-width:100%;
+transform:translateX(-50%);
 
 text-align:center;
 
-z-index:1;
+color:red;
 
-color:#7b6cff;
-
-font-size:18px;
-
-letter-spacing:2px;
+z-index:10;
 
 }
-
-
-/* ======================
-TÍTULO
-====================== */
 
 .terminal h1{
 
-font-size:36px;
-
-margin-bottom:30px;
-
-color:#7b6cff;
+font-size:32px;
+letter-spacing:3px;
 
 }
 
 
 /* ======================
-TEXTOS DO SISTEMA
+CAIXA DE DIALOGO
 ====================== */
 
-.terminal p{
+.chat-container{
 
-margin:10px 0;
+position:absolute;
 
-color:#cfcfff;
+bottom:20px;
+left:50%;
+
+transform:translateX(-50%);
+
+/* largura dobrada */
+
+width:440px;
+
+background:rgba(43,43,43,0.9);
+
+border:1px solid red;
+
+padding:8px;
+
+z-index:10;
+
+}
+
+
+/* área das mensagens */
+
+#chat-box{
+
+height:60px;
+
+overflow-y:auto;
+
+margin-bottom:6px;
+
+font-size:13px;
+
+}
+
+
+/* input */
+
+.input-area{
+
+display:flex;
+
+}
+
+
+#user-input{
+
+flex:1;
+
+background:#2b2b2b;
+
+border:1px solid red;
+
+color:white;
+
+padding:5px;
+
+font-size:13px;
+
+}
+
+
+button{
+
+background:red;
+
+border:none;
+
+color:white;
+
+padding:5px 8px;
+
+cursor:pointer;
+
+font-size:13px;
 
 }

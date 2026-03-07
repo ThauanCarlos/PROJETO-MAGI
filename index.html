@@ -10,7 +10,11 @@
 
 <link rel="stylesheet" href="css/styles.css">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/STLLoader.js"></script>
+
 </head>
+
 
 <body>
 
@@ -22,18 +26,31 @@
 
 <p>Status: ONLINE</p>
 
-<p>Versão: v0.5</p>
+<p>Versão: v0.6</p>
 
 </div>
+
 
 <canvas id="bg"></canvas>
 
 
-<script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+<div class="chat-container">
 
-<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+<div id="chat-box"></div>
+
+<div class="input-area">
+
+<input type="text" id="user-input" placeholder="Digite um comando para o MAGI...">
+
+<button>Enviar</button>
+
+</div>
+
+</div>
+
 
 <script src="js/system.js"></script>
 
 </body>
+
 </html>
