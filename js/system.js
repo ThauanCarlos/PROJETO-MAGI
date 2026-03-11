@@ -344,3 +344,29 @@ camera.updateProjectionMatrix();
 renderer.setSize(window.innerWidth,window.innerHeight);
 
 });
+
+
+// ======================
+// MENU LATERAL
+// ======================
+
+const menuIcon = document.getElementById("menu-icon");
+const sideMenu = document.getElementById("side-menu");
+
+let menuOpen = false;
+
+menuIcon.addEventListener("click", () => {
+
+if(menuOpen){
+
+sideMenu.style.left = "-250px";
+
+}else{
+
+sideMenu.style.left = "0";
+
+}
+
+menuOpen = !menuOpen;
+
+});

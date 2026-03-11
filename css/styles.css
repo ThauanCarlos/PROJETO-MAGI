@@ -3,16 +3,18 @@ body{
 margin:0;
 overflow:hidden;
 
-/* fundo cinza escuro */
+background:#000;
 
-background:#2b2b2b;
+color:#ff0000;
 
-color:white;
 font-family:monospace;
 
 }
 
-/* canvas 3D */
+
+/* ======================
+CANVAS 3D
+====================== */
 
 canvas{
 
@@ -20,42 +22,94 @@ position:fixed;
 top:0;
 left:0;
 
-/* fundo do canvas */
-
-background:#2b2b2b;
+background:#000;
 
 }
 
 
-/* terminal superior */
+/* ======================
+CARIMBO TOP SECRET
+====================== */
 
-.terminal{
+.secret-stamp{
 
 position:absolute;
 
-top:30px;
+top:35px;
+
 left:50%;
 
 transform:translateX(-50%);
 
+border:4px solid #ff0000;
+
+border-radius:10px;
+
+color:#ff0000;
+
+background:rgba(0,0,0,0.9);
+
 text-align:center;
 
-color:red;
+width:340px;
 
 z-index:10;
 
 }
 
-.terminal h1{
 
-font-size:32px;
+/* TEXTO JAPONES */
+
+.stamp-jp{
+
+font-size:42px;
+
+letter-spacing:10px;
+
+padding:8px 0;
+
+border-bottom:4px solid #ff0000;
+
+}
+
+
+/* PARTE INFERIOR */
+
+.stamp-bottom{
+
+padding:10px 0;
+
+}
+
+
+/* TOP SECRET (MAIOR) */
+
+.stamp-topsecret{
+
+font-size:30px;
+
+letter-spacing:4px;
+
+margin-bottom:2px;
+
+font-weight:bold;
+
+}
+
+
+/* PROJETO MAGI (MENOR) */
+
+.stamp-magi{
+
+font-size:18px;
+
 letter-spacing:3px;
 
 }
 
 
 /* ======================
-CAIXA DE DIALOGO
+CHAT
 ====================== */
 
 .chat-container{
@@ -63,26 +117,22 @@ CAIXA DE DIALOGO
 position:absolute;
 
 bottom:20px;
+
 left:50%;
 
 transform:translateX(-50%);
 
-/* largura dobrada */
-
 width:440px;
 
-background:rgba(43,43,43,0.9);
+background:rgba(0,0,0,0.9);
 
-border:1px solid red;
+border:1px solid #ff0000;
 
 padding:8px;
 
 z-index:10;
 
 }
-
-
-/* área das mensagens */
 
 #chat-box{
 
@@ -96,25 +146,21 @@ font-size:13px;
 
 }
 
-
-/* input */
-
 .input-area{
 
 display:flex;
 
 }
 
-
 #user-input{
 
 flex:1;
 
-background:#2b2b2b;
+background:#000;
 
-border:1px solid red;
+border:1px solid #ff0000;
 
-color:white;
+color:#ff0000;
 
 padding:5px;
 
@@ -122,19 +168,120 @@ font-size:13px;
 
 }
 
-
 button{
 
-background:red;
+background:#ff0000;
 
 border:none;
 
-color:white;
+color:#000;
 
 padding:5px 8px;
 
 cursor:pointer;
 
 font-size:13px;
+
+}
+
+
+/* ======================
+MENU ICON
+====================== */
+
+#menu-icon{
+
+position:fixed;
+
+top:30px;
+
+left:30px;
+
+width:60px;
+
+height:60px;
+
+background:#000;
+
+border:2px solid #ff0000;
+
+border-radius:50%;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+gap:6px;
+
+cursor:pointer;
+
+z-index:100;
+
+}
+
+#menu-icon span{
+
+width:26px;
+
+height:4px;
+
+background:#ff0000;
+
+}
+
+
+/* ======================
+MENU LATERAL
+====================== */
+
+#side-menu{
+
+position:fixed;
+
+top:0;
+
+left:-250px;
+
+width:250px;
+
+height:100%;
+
+background:#000;
+
+border-right:2px solid #ff0000;
+
+padding-top:140px;
+
+transition:0.3s;
+
+z-index:90;
+
+}
+
+#side-menu a{
+
+display:block;
+
+padding:15px 25px;
+
+color:#ff0000;
+
+text-decoration:none;
+
+font-family:monospace;
+
+border-bottom:1px solid #330000;
+
+}
+
+#side-menu a:hover{
+
+background:#ff0000;
+
+color:#000;
 
 }
