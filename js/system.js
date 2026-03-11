@@ -370,3 +370,79 @@ sideMenu.style.left = "0";
 menuOpen = !menuOpen;
 
 });
+// ======================
+// CHAT MAGI
+// ======================
+
+function enviarPergunta(){
+
+console.log("clicou enviar");
+
+let input = document.getElementById("user-input");
+
+let texto = input.value.trim();
+
+console.log("texto:", texto);
+
+if(texto === "") return;
+
+let chat = document.getElementById("chat-box");
+
+chat.innerHTML += "<p><b>VOCÊ:</b> " + texto + "</p>";
+
+input.value = "";
+
+fetch("http://127.0.0.1:5000/magi",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+mensagem:texto
+})
+
+})
+.then(res => res.json())
+.then(dados => {
+
+chat.innerHTML += "<p><b>MAGI:</b> " + dados.resposta + "</p>";
+
+chat.scrollTop = chat.scrollHeight;
+
+})
+.catch(error => {
+
+console.log(error);
+
+chat.innerHTML += "<p><b>MAGI:</b> erro ao conectar ao servidor</p>";
+
+});
+
+}
+
+
+
+// ======================
+// ENTER PARA ENVIAR
+// ======================
+
+document.addEventListener("DOMContentLoaded", function(){
+
+let input = document.getElementById("user-input");
+
+input.addEventListener("keydown", function(e){
+
+if(e.key === "Enter"){
+
+e.preventDefault();
+
+enviarPergunta();
+
+}
+
+});
+
+});

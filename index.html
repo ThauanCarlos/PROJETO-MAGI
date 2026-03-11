@@ -15,8 +15,8 @@
 
 </head>
 
-
 <body>
+
 
 <!-- CARIMBO TOP SECRET -->
 
@@ -51,30 +51,40 @@ PROJETO MAGI
 
 </div>
 
-
 <div id="side-menu">
 
-<a href="introducao.html">Introdução</a>
-
-<a href="index.html">Converse com EVA</a>
-
-<a href="download.html">Download Desktop</a>
+<a href="#">Introdução</a>
+<a href="#">Converse com EVA</a>
+<a href="#">Download Desktop</a>
 
 </div>
 
 
+<!-- CANVAS 3D -->
+
 <canvas id="bg"></canvas>
 
 
+
+<!-- CHAT -->
+
 <div class="chat-container">
 
-<div id="chat-box"></div>
+<div id="chat-box">
+
+<p><b>MAGI:</b> Sistema inicializado.</p>
+
+</div>
 
 <div class="input-area">
 
-<input type="text" id="user-input" placeholder="Digite um comando para o MAGI...">
+<input
+type="text"
+id="user-input"
+placeholder="Digite um comando para o MAGI..."
+>
 
-<button>Enviar</button>
+<button type="button" onclick="enviarPergunta()">Enviar</button>
 
 </div>
 
@@ -84,5 +94,4 @@ PROJETO MAGI
 <script src="js/system.js"></script>
 
 </body>
-
 </html>
